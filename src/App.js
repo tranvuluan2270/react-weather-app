@@ -10,13 +10,14 @@ function App() {
   const [forecast, setForecast] = useState(null);
 
   const handleOnSearchChange = (searchData) => {
-    const [lat, lon] = searchData.value.split("");
+    console.log(searchData);
+    const [lat, lon] = searchData.value.split(" ");
 
     const currentWeatherFetch = fetch(
       `${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
     );
     const forecastFetch = fetch(
-      `${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
+      `${WEATHER_API_URL}/forecast/?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
     );
 
     Promise.all([currentWeatherFetch, forecastFetch])
@@ -35,7 +36,7 @@ function App() {
     <div className=" mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
       <Search onSearchChange={handleOnSearchChange} />
       {currentWeather && <CurrentWeather data={currentWeather} />}
-      <Forecast title="daily forecast" />
+      {forecast && <Forecast data={forecast} />}
     </div>
   );
 }

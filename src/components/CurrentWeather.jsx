@@ -1,31 +1,61 @@
 import {
-  UilArrowUp,
   UilArrowDown,
+  UilThermometer,
   UilTemperature,
+  UilTemperatureQuarter,
   UilTear,
   UilWind,
   UilSun,
   UilSunset,
 } from "@iconscout/react-unicons";
+import moment from "moment/moment";
 
 const CurrentWeather = ({ data }) => {
-  var day = new Date(data.dt * 1000);
+  let dateTime = moment.unix(data.dt).utc().add(data.timezone, "s");
+  let sunriseTime = moment.unix(data.sys.sunrise).utc().add(data.timezone, "s");
+  let sunsetTime = moment.unix(data.sys.sunset).utc().add(data.timezone, "s");
+
+  const getDirection = (deg) => {
+    var directions = [
+      "N",
+      "NNE",
+      "NE",
+      "ENE",
+      "E",
+      "ESE",
+      "SE",
+      "SSE",
+      "S",
+      "SSW",
+      "SW",
+      "WSW",
+      "W",
+      "WNW",
+      "NW",
+      "NNW",
+    ];
+    var index = Math.round(((deg %= 360) < 0 ? deg + 360 : deg) / 22.5) % 16;
+    return directions[index];
+  };
+
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center my-6">
-        <p className="text-white text-xl font-extralight">
-          {day.toUTCString()}
-        </p>
+    <>
+      <div className="flex flex-col items-center justify-center my-6 ">
+        <p className="text-white text-xl font-extralight">{`${dateTime.format(
+          "dddd, DD MMMM YYYY"
+        )} | Local time: ${dateTime.format("HH:mm ")}`}</p>
       </div>
-      <div className="flex items-center justify-center my-3">
+      <div className="flex items-center justify-center my-6">
         <p className="text-white text-3xl font-medium">{data.city}</p>
       </div>
-
-      <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
+      <div className="flex items-center justify-center my-2 text-xl text-cyan-300">
+        <p>{data.weather[0].main}</p>
+      </div>
+      <div className="flex items-center justify-center my-2 text-md text-cyan-200 font-light">
         <p>{data.weather[0].description}</p>
       </div>
 
-      <div className="flex flex-row items-center justify-between text-white py-3">
+      <div className="flex flex-row items-center justify-between  text-white my-6">
         <img
           src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
           alt=""
@@ -34,7 +64,7 @@ const CurrentWeather = ({ data }) => {
         <p className="text-5xl">{data.main.temp.toFixed()}°</p>
         <div className="flex flex-col space-y-2 ">
           <div className="flex font-light text-sm  ">
-            <UilTemperature size={18} className="mr-1" />
+            <UilThermometer size={18} className="mr-1" />
             Real feel:
             <span className="font-medium ml-1">
               {data.main.feels_like.toFixed()}°
@@ -49,43 +79,54 @@ const CurrentWeather = ({ data }) => {
             <UilWind size={18} className="mr-1" />
             Wind:
             <span className="font-medium ml-1">
-              {data.wind.speed.toFixed()} km/h
+              {(data.wind.speed * 3.6).toFixed()} km/h
+              <UilArrowDown
+                style={{
+                  display: "inline-block",
+                  rotate: `${data.wind.deg}deg`,
+                }}
+              />
+              {getDirection(data.wind.deg)}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center space-x-2 text-white text-sm py-3">
+      <div className="flex flex-row items-center justify-between space-x-2 text-white text-sm my-6">
         <UilSun />
         <p className="font-light">
-          Rise: <span className="font-medium ml-1">04:50 AM</span>
+          Rise:{" "}
+          <span className="font-medium ml-1">
+            {sunriseTime.format("HH:mm")}
+          </span>
         </p>
         <p className="font-light">|</p>
 
         <UilSunset />
         <p className="font-light">
-          Set: <span className="font-medium ml-1"> 09:17 PM</span>
+          Set:{" "}
+          <span className="font-medium ml-1">{sunsetTime.format("HH:mm")}</span>
         </p>
         <p className="font-light">|</p>
 
-        <UilArrowUp />
+        <UilTemperature />
         <p className="font-light">
-          High:{" "}
+          Max:{" "}
           <span className="font-medium ml-1">
             {data.main.temp_max.toFixed()}°
           </span>
         </p>
         <p className="font-light">|</p>
 
-        <UilArrowDown />
+        <UilTemperatureQuarter />
         <p className="font-light">
-          Low:{" "}
+          Min:{" "}
           <span className="font-medium ml-1">
             {data.main.temp_min.toFixed()}°
           </span>
         </p>
       </div>
-    </div>
+    </>
   );
 };
 
