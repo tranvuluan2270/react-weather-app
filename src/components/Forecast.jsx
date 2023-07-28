@@ -1,32 +1,28 @@
-const WEEK_DAYS = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
-const Forecast = ({ data }) => {
-  const dayInAWeek = new Date().getDay();
-  const forecastDays = WEEK_DAYS.slice(dayInAWeek, WEEK_DAYS.length).concat(
-    WEEK_DAYS.slice(0, 1)
-  );
+import moment from "moment/moment";
 
+const Forecast = ({ data }) => {
   return (
     <>
       <div className="flex items-center justify-start mt-6">
-        <p className="text-white font-medium uppercase">3-hour forecast</p>
+        <p className="text-white font-medium uppercase">
+          Next 3 hours forecast
+        </p>
       </div>
       <hr className="my-1" />
 
       <div className="flex flex-row items-center justify-between text-white my-4 ">
-        {data.list.splice(0, 5).map((item, index) => (
+        {data.list.slice(0, 5).map((item, index) => (
           <div
             className="flex flex-col items-center justify-center gap-1"
             key={index}
           >
-            <p className="font-light text-md">{forecastDays[index]}</p>
+            <p className="font-light text-md">
+              {moment
+                .unix(item.dt)
+                .utc()
+                .add(data.city.timezone, "s")
+                .format("ddd HH:mm")}
+            </p>
 
             <img
               src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
