@@ -3,14 +3,14 @@ import moment from "moment/moment";
 const Forecast = ({ data }) => {
   return (
     <>
-      <div className="flex items-center justify-start mt-6">
+      <div className="flex items-center justify-start">
         <p className="text-white font-medium uppercase">
           Next 3 hours forecast
         </p>
       </div>
       <hr className="my-1" />
 
-      <div className="flex flex-row items-center justify-between text-white my-4 ">
+      <div className="flex flex-row items-center justify-between text-white mt-4">
         {data.list.slice(0, 5).map((item, index) => (
           <div
             className="flex flex-col items-center justify-center gap-1"

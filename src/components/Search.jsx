@@ -1,9 +1,8 @@
-import { UilSearch, UilLocationPoint } from "@iconscout/react-unicons";
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GEO_API_URL, geoApiOptions } from "../services/weatherService";
 
-const Search = ({ onSearchChange }) => {
+const Search = ({ onSearchChange, units, setUnits }) => {
   const [search, setSearch] = useState(null);
 
   const loadOptions = (inputValue) => {
@@ -24,6 +23,7 @@ const Search = ({ onSearchChange }) => {
       })
       .catch((err) => console.error(err));
   };
+
   const handleOnChange = (searchData) => {
     setSearch(searchData);
     onSearchChange(searchData);
@@ -31,35 +31,14 @@ const Search = ({ onSearchChange }) => {
 
   return (
     <>
-      <div className="flex flex-row justify-center my-6">
-        <div className="flex flex-row w-3/4 items-center justify-center space-x-4 ">
-          <AsyncPaginate
-            className="text-xl font-light p-2 w-full focus:outline-none capitalize placeholder:lowercase rounded-md"
-            placeholder="Search for city"
-            debounceTimeout={1000}
-            value={search}
-            onChange={handleOnChange}
-            loadOptions={loadOptions}
-          />
-          <UilSearch
-            size={25}
-            className="text-white cursor-pointer transition ease-out hover:scale-125"
-          />
-          <UilLocationPoint
-            size={25}
-            className="text-white cursor-pointer transition ease-out hover:scale-125"
-          />
-        </div>
-        <div className="flex flex-row w-1/4 items-center justify-center">
-          <button name="metric" className="text-xl text-white font-light">
-            °C
-          </button>
-          <p className="text-xl text-white mx-1">|</p>
-          <button name="imperial" className="text-xl text-white font-light">
-            °F
-          </button>
-        </div>
-      </div>
+      <AsyncPaginate
+        className="text-xl font-light focus:outline-none capitalize placeholder:lowercase "
+        placeholder="Search for city"
+        debounceTimeout={1000}
+        value={search}
+        onChange={handleOnChange}
+        loadOptions={loadOptions}
+      />
     </>
   );
 };

@@ -40,18 +40,18 @@ const CurrentWeather = ({ data }) => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center my-6 ">
+      <div className="flex flex-col items-center justify-center ">
         <p className="text-white text-xl font-extralight">{`${dateTime.format(
           "dddd, DD MMMM YYYY"
         )} | Local time: ${dateTime.format("HH:mm ")}`}</p>
       </div>
-      <div className="flex items-center justify-center my-6">
-        <p className="text-white text-3xl font-medium">{data.city}</p>
+      <div className="flex items-center justify-center mt-4">
+        <p className="text-white text-3xl font-medium ">{data.city}</p>
       </div>
-      <div className="flex items-center justify-center my-2 text-xl text-cyan-300">
+      <div className="flex items-center justify-center mt-2 text-xl text-cyan-300">
         <p>{data.weather[0].main}</p>
       </div>
-      <div className="flex items-center justify-center my-2 text-md text-cyan-200 font-light">
+      <div className="flex items-center justify-center mt-2 text-md text-cyan-200 font-light">
         <p>{data.weather[0].description}</p>
       </div>
 
@@ -92,7 +92,7 @@ const CurrentWeather = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-between space-x-2 text-white text-sm my-6">
+      <div className="flex flex-row items-center justify-evenly  text-white text-sm">
         <UilSun />
         <p className="font-light">
           Rise:{" "}

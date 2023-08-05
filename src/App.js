@@ -1,4 +1,3 @@
-import "./App.css";
 import CurrentWeather from "./components/CurrentWeather";
 import Forecast from "./components/Forecast";
 import Search from "./components/Search";
@@ -10,7 +9,6 @@ function App() {
   const [forecast, setForecast] = useState(null);
 
   const handleOnSearchChange = (searchData) => {
-    console.log(searchData);
     const [lat, lon] = searchData.value.split(" ");
 
     const currentWeatherFetch = fetch(
@@ -33,10 +31,21 @@ function App() {
   console.log(currentWeather);
   console.log(forecast);
   return (
-    <div className=" mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
-      <Search onSearchChange={handleOnSearchChange} />
-      {currentWeather && <CurrentWeather data={currentWeather} />}
-      {forecast && <Forecast data={forecast} />}
+    <div className="min-h-screen py-6 bg-gradient-to-tr from-cyan-500 to-blue-500">
+      <div className="mx-auto w-1/4 px-8 py-4 backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+        <Search onSearchChange={handleOnSearchChange} />
+      </div>
+
+      {currentWeather && (
+        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+          <CurrentWeather data={currentWeather} />
+        </div>
+      )}
+      {forecast && (
+        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+          <Forecast data={forecast} />
+        </div>
+      )}
     </div>
   );
 }
