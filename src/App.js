@@ -30,19 +30,28 @@ function App() {
 
   console.log(currentWeather);
   console.log(forecast);
+
+  const formatBackground = () => {
+    const getStatus = currentWeather?.weather[0].icon;
+    if (!currentWeather) return "bg-gradient-to-tr from-cyan-500 to-blue-500";
+    if (getStatus.charAt(getStatus.length - 1) === "d")
+      return "bg-[url('./assets/day.webp')] min-h-screen bg-cover bg-fixed bg-center bg-no-repeat";
+    return "bg-[url('./assets/night.webp')] min-h-screen bg-cover bg-fixed bg-center bg-no-repeat";
+  };
+
   return (
-    <div className="min-h-screen py-6 bg-gradient-to-tr from-cyan-500 to-blue-500">
-      <div className="mx-auto w-1/4 px-8 py-4 backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+    <div className={`min-h-screen py-6 ${formatBackground()}`}>
+      <div className="mx-auto w-1/4 px-8 py-4 backdrop-blur-[16px] backdrop-saturate-[150%] saturate-[150%]  bg-gray-500/70  shadow-xl rounded-xl  border border-gray-300/70">
         <Search onSearchChange={handleOnSearchChange} />
       </div>
 
       {currentWeather && (
-        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-[16px] backdrop-saturate-[150%] saturate-[150%] bg-gray-500/70  shadow-xl rounded-xl  border border-gray-300/70">
           <CurrentWeather data={currentWeather} />
         </div>
       )}
       {forecast && (
-        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-[20px] bg-gray-800/20  shadow-lg rounded-lg border border-gray-300">
+        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-[16px] backdrop-saturate-[150%] saturate-[150%] bg-gray-500/70  shadow-xl rounded-xl  border border-gray-300/70">
           <Forecast data={forecast} />
         </div>
       )}

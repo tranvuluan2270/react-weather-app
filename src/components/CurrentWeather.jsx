@@ -59,9 +59,11 @@ const CurrentWeather = ({ data }) => {
         <img
           src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
           alt=""
-          className="w-20 "
+          className="w-20"
         />
-        <p className="text-5xl">{data.main.temp.toFixed()}°</p>
+
+        <p className="text-6xl">{data.main.temp.toFixed()}°</p>
+
         <div className="flex flex-col space-y-2 ">
           <div className="flex font-light text-sm  ">
             <UilThermometer size={18} className="mr-1" />
@@ -111,7 +113,7 @@ const CurrentWeather = ({ data }) => {
 
         <UilTemperature />
         <p className="font-light">
-          Max:{" "}
+          High:{" "}
           <span className="font-medium ml-1">
             {data.main.temp_max.toFixed()}°
           </span>
@@ -120,7 +122,7 @@ const CurrentWeather = ({ data }) => {
 
         <UilTemperatureQuarter />
         <p className="font-light">
-          Min:{" "}
+          Low:{" "}
           <span className="font-medium ml-1">
             {data.main.temp_min.toFixed()}°
           </span>
