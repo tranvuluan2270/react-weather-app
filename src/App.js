@@ -4,7 +4,8 @@ import Forecast from "./components/Forecast";
 import Search from "./components/Search";
 import { WEATHER_API_URL, WEATHER_API_KEY } from "./services/weatherService";
 import { Player } from "@lottiefiles/react-lottie-player";
-import animationData from "./assets/animation.json";
+import animation1 from "./assets/animation1.json";
+import animation2 from "./assets/animation2.json";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -59,18 +60,23 @@ function App() {
       {!currentWeather && (
         <div>
           <Player
-            src={animationData}
-            className="w-[400px] h-[400px] relative float-left left-10 top-10 "
+            src={animation1}
+            className=" w-[500px] h-[500px] relative float-left left-10 bottom-5"
             autoplay
             loop
           />
-          <div className="m-0 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col gap-6 items-center justify-center h-1/3 backdrop-blur-[16px] drop-shadow-xl bg-white/30 text-zinc-700">
-            <h1 className="text-4xl font-thin ">
-              Weather <span className="font-black">Forecast</span>
+          <Player
+            src={animation2}
+            className="  w-[600px] relative float-right right-20"
+            autoplay
+            loop
+          />
+          <div className="m-0 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col gap-6 items-center justify-center h-1/3 backdrop-blur-sm drop-shadow-xl bg-white/20 border border-white/40 ">
+            <h1 className="text-5xl text-sky-200 font-thin">
+              Weather <span className="text-sky-800 font-black">Forecast</span>
             </h1>
-            <p className="text-sm">
-              Enter below a place you want to know the weather of and select an
-              option from the dropdown
+            <p className="text-lg font-extralight text-white">
+              Enter a place below and select a city
             </p>
             <div className="w-1/5">
               <Search onSearchChange={handleOnSearchChange} />
@@ -80,12 +86,12 @@ function App() {
       )}
 
       {currentWeather && (
-        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-[16px] backdrop-saturate-[180%] saturate-[180%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-gray-300/70">
+        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-md backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-white/30">
           <CurrentWeather data={currentWeather} />
         </div>
       )}
       {forecast && (
-        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-[16px] backdrop-saturate-[180%] saturate-[180%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-gray-300/70">
+        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-md backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-white/30">
           <Forecast data={forecast} />
         </div>
       )}
