@@ -10,7 +10,6 @@ import animation2 from "./assets/animation2.json";
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
-  var dailyData = {};
 
   const handleOnSearchChange = (searchData) => {
     const [lat, lon] = searchData.value.split(" ");
@@ -32,20 +31,8 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  forecast?.list.map((item) => {
-    const dateTime = new Date(item.dt * 1000);
-    const day = dateTime.getDate();
-    const time = dateTime.getHours();
-    // check if dailyData map has it
-    if (!dailyData[day]) dailyData[day] = [];
-    dailyData[day].push({ ...item, day, time });
-
-    return dailyData;
-  });
-
   console.log(currentWeather);
   console.log(forecast);
-  console.log(dailyData);
 
   const formatBackground = () => {
     const getStatus = currentWeather?.weather[0].icon;
@@ -73,7 +60,8 @@ function App() {
           />
           <div className="m-0 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col gap-6 items-center justify-center h-1/3 backdrop-blur-sm drop-shadow-xl bg-white/20 border border-white/40 ">
             <h1 className="text-5xl text-sky-200 font-thin">
-              Weather <span className="text-sky-800 font-black">Forecast</span>
+              Weather {""}
+              <span className="text-sky-800 font-black">Forecast</span>
             </h1>
             <p className="text-lg font-extralight text-white">
               Enter a place below and select a city
@@ -85,14 +73,14 @@ function App() {
         </div>
       )}
 
-      {currentWeather && (
-        <div className=" mx-auto max-w-screen-lg px-32 py-6 my-6 backdrop-blur-md backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-white/30">
-          <CurrentWeather data={currentWeather} />
-        </div>
-      )}
-      {forecast && (
-        <div className="mx-auto max-w-screen-md px-16 py-3  backdrop-blur-md backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  drop-shadow-xl rounded-xl  border border-white/30">
-          <Forecast data={forecast} />
+      {currentWeather && forecast && (
+        <div>
+          <div className="mx-auto max-w-screen-md px-16 py-6 backdrop-blur-[16px] backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  shadow-xl rounded-lg  border border-white/70">
+            <CurrentWeather data={currentWeather} />
+          </div>
+          <div className="mx-auto max-w-screen-md px-16 py-3 my-3 backdrop-blur-[16px] backdrop-saturate-[200%] saturate-[200%] bg-gray-500/70  shadow-xl rounded-lg  border border-white/70">
+            <Forecast data={forecast} />
+          </div>
         </div>
       )}
     </div>

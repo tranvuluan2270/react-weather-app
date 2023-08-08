@@ -9,3 +9,22 @@
     font-family: "Poppins", sans-serif;
   }
 }
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 100vh;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
