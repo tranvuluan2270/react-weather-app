@@ -11,7 +11,7 @@ const Forecast = ({ data }) => {
       <div className="flex flex-row items-center justify-between text-white py-3  gap-5 overflow-x-scroll scroll-smooth scrollbar">
         {data.list.map((item, index) => (
           <div
-            className=" flex flex-col flex-shrink-0 items-center justify-center gap-1 p-3  w-36 backdrop-blur-none bg-white/20 border border-white/30 rounded shadow-lg"
+            className=" flex flex-col flex-shrink-0 items-center justify-center gap-1 p-3  w-36 bg-white/20 border border-white/40 rounded shadow-lg"
             key={index}
           >
             <p className="font-light text-sm">

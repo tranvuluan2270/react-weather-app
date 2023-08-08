@@ -7,6 +7,7 @@ import {
   UilWind,
   UilSun,
   UilSunset,
+  UilMapMarker,
 } from "@iconscout/react-unicons";
 import moment from "moment/moment";
 
@@ -37,9 +38,18 @@ const CurrentWeather = ({ data }) => {
     var index = Math.round(((deg %= 360) < 0 ? deg + 360 : deg) / 22.5) % 16;
     return directions[index];
   };
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   return (
     <>
+      <button
+        onClick={refreshPage}
+        className="absolute top-5 left-5 py-1 px-2 bg-white/30 text-white/50 hover:bg-white/50 hover:text-white   rounded shadow transition-all"
+      >
+        <UilMapMarker />
+      </button>
       <div className="flex flex-col items-center justify-center ">
         <p className="text-white text-xl font-extralight">{`${dateTime.format(
           "dddd, DD MMMM YYYY"

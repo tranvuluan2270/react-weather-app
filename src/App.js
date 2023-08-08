@@ -37,7 +37,7 @@ function App() {
   const formatBackground = () => {
     const getStatus = currentWeather?.weather[0].icon;
     if (!currentWeather) return "bg-gradient-to-tr from-cyan-500 to-blue-500";
-    if (getStatus.charAt(getStatus.length - 1) === "d")
+    if (getStatus?.charAt(getStatus.length - 1) === "d")
       return "bg-[url('./assets/day.webp')] min-h-screen bg-cover bg-fixed bg-center bg-no-repeat";
     return "bg-[url('./assets/night.webp')] min-h-screen bg-cover bg-fixed bg-center bg-no-repeat";
   };
@@ -54,14 +54,13 @@ function App() {
           />
           <Player
             src={animation2}
-            className="  w-[600px] relative float-right right-20"
+            className="w-[600px] relative float-right right-20"
             autoplay
             loop
           />
-          <div className="m-0 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col gap-6 items-center justify-center h-1/3 backdrop-blur-sm drop-shadow-xl bg-white/20 border border-white/40 ">
+          <div className=" m-0 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col gap-6 items-center justify-center h-1/3 backdrop-blur-sm shadow-xl drop-shadow-xl bg-white/20 border border-white/40 ">
             <h1 className="text-5xl text-sky-200 font-thin">
-              Weather {""}
-              <span className="text-sky-800 font-black">Forecast</span>
+              Weather <span className="text-sky-800 font-black">Forecast</span>
             </h1>
             <p className="text-lg font-extralight text-white">
               Enter a place below and select a city
