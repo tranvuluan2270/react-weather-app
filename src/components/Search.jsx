@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
-import { GEO_API_URL, geoApiOptions } from "../services/weatherService";
+
+import { GEO_API_URL, WEATHER_API_KEY } from "../services/weatherService";
 
 const Search = ({ onSearchChange }) => {
   const [search, setSearch] = useState(null);
 
-  const loadOptions = (inputValue) => {
-    return fetch(
-      `${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`,
-      geoApiOptions
+  const loadOptions = async (inputValue) => {
+    return await fetch(
+      `${GEO_API_URL}?q=${inputValue}&limit=5&appid=${WEATHER_API_KEY}`
     )
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         return {
-          options: response.data.map((city) => {
+          options: response.map((city) => {
             return {
-              value: `${city.latitude} ${city.longitude}`,
-              label: `${city.name}, ${city.countryCode}`,
+              value: `${city.lat} ${city.lon}`,
+              label: `${city.name}, ${city.country}`,
+              name: `${city.name}`,
+              state: `${city.state}`,
+              country: `${city.country}`,
             };
           }),
         };
@@ -33,12 +37,13 @@ const Search = ({ onSearchChange }) => {
   return (
     <>
       <AsyncPaginate
-        className="text-xl font-light focus:outline-none placeholder:lowercase"
-        placeholder="search for city..."
-        debounceTimeout={1000}
-        value={search}
+        className="text-lg font-alt focus:outline-none placeholder:lowercase"
+        placeholder="search for a city..."
         onChange={handleOnChange}
         loadOptions={loadOptions}
+        value={search}
+        debounceTimeout={1000}
+        openMenuOnClick={false}
       />
     </>
   );

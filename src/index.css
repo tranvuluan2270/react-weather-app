@@ -8,6 +8,17 @@
   html {
     font-family: "Poppins", sans-serif;
   }
+  body {
+    overflow: hidden;
+  }
+  @font-face {
+    font-family: VNPoppins;
+    src: url(./assets/fonts/VNPoppins-Regular.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: PoppinsXLight;
+    src: url(./assets/fonts/Poppins-ExtraLight.otf) format("truetype");
+  }
 }
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
