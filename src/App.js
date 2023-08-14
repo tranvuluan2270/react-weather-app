@@ -40,9 +40,6 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  console.log(currentWeather);
-  console.log(forecast);
-
   const formatBackground = () => {
     const getStatus = currentWeather?.weather[0].icon;
     if (!currentWeather) return "bg-gradient-to-tl from-cyan-500 to-blue-500";
